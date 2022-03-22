@@ -1,0 +1,10 @@
+LICENSE
+README.rst
+setup.py
+ipfsvault/__init__.py
+ipfsvault/module_vault.py
+ipfsvault.egg-info/PKG-INFO
+ipfsvault.egg-info/SOURCES.txt
+ipfsvault.egg-info/dependency_links.txt
+ipfsvault.egg-info/requires.txt
+ipfsvault.egg-info/top_level.txt

@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='ipfsvault',
-    version='0.0.1',
+    version='0.1.0',
     description=
     "decentralize storage for authenticatino process package it uses ipfs for storing the data and multihash, md5, sha256, sha512 for authentication",
     url='https://github.com/rahulraikwar00/IpfaVault',
