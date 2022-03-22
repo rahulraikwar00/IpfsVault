@@ -5,7 +5,7 @@ setup(
     version='0.0.1',
     description=
     "decentralize storage for authenticatino process package it uses ipfs for storing the data and multihash, md5, sha256, sha512 for authentication",
-    # url='https://github.com/shuds13/pyexample',
+    url='https://github.com/rahulraikwar00/IpfaVault',
     author='Rahul Raikwar',
     author_email='rr200636@gmail.com',
     license='BSD 2-clause',
