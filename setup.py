@@ -10,10 +10,8 @@ setup(
     author_email='rr200636@gmail.com',
     license='BSD 2-clause',
     packages=['ipfsvault'],
-    install_requires=[
-        'mpi4py>=2.0',
-        'numpy',
-    ],
+    install_requires=["pycrypto", "pycryptodome"],
+    long_description=open("README.md").read(),
     classifiers=[
         'Development Status :: 1 - Planning',
         'Intended Audience :: Science/Research',
