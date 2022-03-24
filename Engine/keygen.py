@@ -13,7 +13,7 @@ import sys
 import binascii
 
 
-class User:
+class Keygen:
     def __init__(self, user_details):
         self.user_details = user_details
         self.hash = MD5.new()
@@ -23,13 +23,13 @@ class User:
         _name = self.user_details["name"]
         _nonce = str(int(time.time()))
         _token_value = _name + _nonce
-        self.hash.update(_token_value.encode('utf-8'))
-        return binascii.hexlify(self.hash.digest()).decode('utf-8')
+        self.hash.update(_token_value.encode("utf-8"))
+        return binascii.hexlify(self.hash.digest()).decode("utf-8")
 
 
-# if __name__ == '__main__':
+# if __name__ == "__main__":
 #     details = {"name": "Dante", "email": "foo@bar.com"}
 
-#     user = User(details)
+#     user = Keygen(details)
 #     print(len(user.generate_key))
 #     sys.stdout.write(user.generate_key + "\n")

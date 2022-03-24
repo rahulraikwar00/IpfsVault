@@ -1,16 +1,14 @@
-from ast import Str
-from base64 import encode
-from codecs import EncodedFile
+from pprint import pprint
+import re
 import os
-import sys
+import time
 import json
 import requests
-from Engine import card as cardX, user as userX
-import cryptography
+from Engine import card as cardX, keygen as keygenX
 
 
 class Valut:
-    def __init__(self, masterkey: Str) -> None:
+    def __init__(self, masterkey=None) -> None:
         self.masterkey = masterkey
         self.aadharno = ""
         self.encodefile = ""
@@ -58,16 +56,30 @@ class Valut:
 
 obj = Valut()
 obj.key = "7195bb5b30deff29d83ac5n2b50b8c68"
-data = obj.upload(
-    {
-        "aadhaarno": "333-788-98188",
-        "name": "Rahul Raikwar",
-        "dob": "27-09-1997",
-        "address": "kathmandu",
-        "email": ")",
-    }
-)
+raw_data = {
+    "aadhaarno": "333-788-98188",
+    "name": "Rahul Raikwar",
+    "dob": "27-09-2000",
+    "address": "New york ",
+    "email": "rr200636@gmail.com",
+}
+data = obj.upload(raw_data)
+
+
+pprint(raw_data)
+pprint("Encryption is in process... wait!")
+time.sleep(2)
+pprint("Uploding to IPFS ...")
+time.sleep(1)
+pprint("\n--------------------------------------------------------")
+pprint("Done !")
+pprint(data)
 sdata = obj.download(data["Hash"])
-print(len(sdata))
-obj.encodefile = sdata
-obj.decryptfile()
+sdata = sdata.rstrip(sdata[-1])
+
+sdata = re.sub("[^a-z0-9]+", "", sdata, flags=re.IGNORECASE)
+print(sdata)
+print("Decryption The data.....wait!")
+time.sleep(1)
+pprint("done!")
+obj.decryptfile(sdata)
