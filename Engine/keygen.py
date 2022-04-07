@@ -1,12 +1,3 @@
-#####################################
-# Author : Rahul Raikwar            #
-# Description :                     #
-#                                   #
-# The following code will generate  #
-# a private key for a particular    #
-# user.                             #
-#####################################
-
 from Crypto.Hash import MD5
 import time
 import sys
@@ -27,9 +18,9 @@ class Keygen:
         return binascii.hexlify(self.hash.digest()).decode("utf-8")
 
 
-# if __name__ == "__main__":
-#     details = {"name": "Dante", "email": "foo@bar.com"}
+if __name__ == "__main__":
+    details = {"name": "Dante", "email": "foo@bar.com"}
 
-#     user = Keygen(details)
-#     print(len(user.generate_key))
-#     sys.stdout.write(user.generate_key + "\n")
+    user = Keygen(details)
+    print(len(user.generate_key))
+    sys.stdout.write(user.generate_key + "\n")

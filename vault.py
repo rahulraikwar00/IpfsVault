@@ -4,13 +4,14 @@ import os
 import time
 import json
 import requests
-from Engine import card as cardX, keygen as keygenX
+from Engine import card as cardX, keygen as keygenX, progress as progressX
 
 
 class Valut:
-    def __init__(self, masterkey=None) -> None:
+    def __init__(self, masterkey=None, key=None) -> None:
         self.masterkey = masterkey
         self.aadharno = ""
+        self.key = key
         self.encodefile = ""
         # create a json file and return file object if not exist
         if not os.path.exists("data.json"):
@@ -19,12 +20,17 @@ class Valut:
 
     # encrypt the data and return the ciphertext
     def encryptfile(self, details: dict):
+        self.key = keygenX.Keygen(details).generate_key
         card = cardX.Card(self.key.encode("utf-8"), str(details))
         cipher = card.encrypt_data
+        with open("data.json", "wb") as f:
+            f.write(cipher.encode("utf-8"))
+
         return cipher
 
     # decrypt the data and return the plaintext
     def decryptfile(self, datastring: str):
+        datastring = re.sub("[^a-z0-9]+", "", datastring, flags=re.IGNORECASE)
         print(len(datastring))
         card = cardX.Card(self.key.encode("utf-8")).decrypt_data(datastring)
         print(card)
@@ -36,9 +42,6 @@ class Valut:
         files = {details["aadhaarno"]: cipher}
         response = requests.post("http://127.0.0.1:5001/api/v0/add", files=files)
         p = response.json()
-        # hash = p["Hash"]
-        # print(p)
-
         return p
 
     def download(self, hash: str):
@@ -55,31 +58,34 @@ class Valut:
 
 
 obj = Valut()
-obj.key = "7195bb5b30deff29d83ac5n2b50b8c68"
 raw_data = {
-    "aadhaarno": "333-788-98188",
+    "aadhaarno": "333-789-98188",
     "name": "Rahul Raikwar",
     "dob": "27-09-2000",
     "address": "New york ",
     "email": "rr200636@gmail.com",
 }
 data = obj.upload(raw_data)
-
-
 pprint(raw_data)
 pprint("Encryption is in process... wait!")
 time.sleep(2)
-pprint("Uploding to IPFS ...")
+# pprint("Done! \nUploding to IPFS ...")
+progressX.pbar(data)
+
+# Initial call to print 0% progress
+
 time.sleep(1)
-pprint("\n--------------------------------------------------------")
+pprint("--------------------------------------------------------")
 pprint("Done !")
 pprint(data)
 sdata = obj.download(data["Hash"])
-sdata = sdata.rstrip(sdata[-1])
+# sdata = sdata.rstrip(sdata[-1])
 
-sdata = re.sub("[^a-z0-9]+", "", sdata, flags=re.IGNORECASE)
 print(sdata)
 print("Decryption The data.....wait!")
+progressX.pbar(data)
 time.sleep(1)
 pprint("done!")
 obj.decryptfile(sdata)
+
+
